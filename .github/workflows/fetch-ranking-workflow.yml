@@ -21,4 +21,4 @@ jobs:
     - run: yarn install
     - run: make today
     - uses: zwaldowski/git-commit-action@v1
-    - uses: ludeeus/action-push@0.0.1
+    - uses: ad-m/github-push-action@master
