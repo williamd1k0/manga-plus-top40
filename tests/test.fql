@@ -1,0 +1,10 @@
+LET doc = DOCUMENT('https://mangaplus.shueisha.co.jp/manga_list/hot', {
+    driver: 'cdp'
+})
+
+WAIT_ELEMENT(doc, 'div[class^=HotTitle-module_container]', 5000)
+
+LET entries = ELEMENTS(doc, 'div[class^=HotTitle-module_container]')
+
+FOR entry IN entries
+    RETURN INNER_TEXT(entry, 'p[class^=HotTitle-module_title]')
