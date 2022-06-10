@@ -2,10 +2,10 @@
 
 today:
 	@echo Fetching: today
-	@node src/index.js -o
+	@node src/scrap-data.js -o
 
 archived:
 	@for entry in $(shell cat archived.ls); do \
 		echo Fetching: $${entry}; \
-		node src/index.js -a $${entry}; \
+		node src/scrap-data.js -a $${entry}; \
 	done
