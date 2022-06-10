@@ -1,4 +1,4 @@
-.PHONY: today archived
+.PHONY: today archived yaml
 
 today:
 	@echo Fetching: today
@@ -9,3 +9,6 @@ archived:
 		echo Fetching: $${entry}; \
 		node src/scrap-data.js -a $${entry}; \
 	done
+
+yaml:
+	@node src/process-data.js
