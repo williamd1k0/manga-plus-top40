@@ -54,6 +54,17 @@ const config = {
 				min: 1,
 				max: 40,
 				reverse: true,
+				grid: {
+					drawBorder: false,
+					color: function(context) {
+						if (context.tick.value <= 15) {
+							return 'green';
+						} else if (context.tick.value <= 30) {
+							return 'yellow';
+						}
+						return 'red';
+					},
+				},
 			}
 		}
 	},
