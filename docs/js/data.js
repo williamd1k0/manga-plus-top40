@@ -13,7 +13,7 @@ function getAllData() {
 			borderColor: randomColors[{{ forloop.index }}-1],
 			backgroundColor: randomColors[{{ forloop.index }}-1],
 			fill: false,
-			tension: 0,
+			tension: 0.3,
 		},
 		{% endfor %}
 	];
