@@ -17,7 +17,7 @@ const slugifyConfig = {
 	lower: true,
 	strict: true,
 	trim: true
-}
+};
 
 function UID(title) {
 	return slugify(title, slugifyConfig);
@@ -30,7 +30,7 @@ async function rreaddir(dir, allFiles = []) {
 		(await fs.stat(f)).isDirectory() && rreaddir(f, allFiles)
 	)));
 	return allFiles;
-};
+}
 
 function processRankingData(ranking, date, result) {
 	const lines = ranking.trim().split('\n');
@@ -55,14 +55,21 @@ function processRankingData(ranking, date, result) {
 			result[uid].ranking.push([date, parseInt(rank)]);
 		}
 	}
-};
+}
+
+function sortData(data) {
+	const collator = new Intl.Collator();
+	for (const entry of Object.keys(data)) {
+		data[entry].ranking.sort((a, b) => collator.compare(a[0], b[0]));
+	}
+}
 
 async function saveTitleData(uid, data) {
 	console.log(uid, data);
 	const outputPath = path.join(OUTPUT_DIR, uid+'.yml');
 	const yamlData = yaml.dump(data);
 	await fs.writeFile(outputPath, yamlData, 'utf8');
-};
+}
 
 (async () => {
 	const data = {};
@@ -76,6 +83,7 @@ async function saveTitleData(uid, data) {
 			processRankingData(rankingData, date, data);
 		}
 	}
+	sortData(data); // NOTE: The async file operations will mess up the date order.
 	await fs.mkdir(OUTPUT_DIR, { recursive: true });
 	for (const entry of Object.keys(data)) {
 		await saveTitleData(entry, data[entry]);
