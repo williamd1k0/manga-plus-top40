@@ -8,9 +8,17 @@ const OUTPUT_DIR = "docs/_data/rankings";
 /* Jekyll Data Scheme
 title: <manga title>
 ranking:
-- [<date>, <ranking>]
+- { x: <date>, y: <ranking> }
 - ...
 */
+
+function remapTitle(title) {
+	return title
+		.replace(/Dr\.?\s*Stone/i, 'Dr. STONE')
+		.replace(/ONE\s*PIECE/i, 'One Piece')
+		.replace(/8Kaijuu/i, 'Monster #8')
+		.replace(/Samurai\s*8.*/i, 'Samurai 8: The Tale of Hachimaru');
+}
 
 const slugifyConfig = {
 	replacement: '_',
@@ -36,10 +44,11 @@ function processRankingData(ranking, date, result) {
 	const lines = ranking.trim().split('\n');
 	for (const line of lines) {
 		const [rank, title] = line.split('\t');
-		const uid = UID(title);
+		const remappedTitle = remapTitle(title);
+		const uid = UID(remappedTitle);
 		if (!(uid in result)) {
 			result[uid] = {
-				title: title,
+				title: remappedTitle,
 				ranking: []
 			};
 		}
