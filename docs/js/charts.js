@@ -47,6 +47,7 @@ const config = {
 			},
 			y: {
 				display: true,
+				position: 'right',
 				title: {
 					display: true,
 					text: 'Ranking'
