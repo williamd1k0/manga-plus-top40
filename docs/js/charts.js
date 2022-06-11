@@ -1,7 +1,9 @@
+const data = filterData(getAllData());
 const config = {
 	type: 'line',
 	data: {
-		datasets: filterData(getAllData()),
+		labels: getLabels(data),
+		datasets: data,
 	},
 	options: {
 		responsive: true,
@@ -9,6 +11,9 @@ const config = {
 			title: {
 				display: true,
 				text: 'Manga+ Top 40 (WIP)'
+			},
+			legend: {
+				position: 'bottom',
 			},
 		},
 		interaction: {

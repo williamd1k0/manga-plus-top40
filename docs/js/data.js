@@ -19,6 +19,19 @@ function getAllData() {
 	];
 }
 
+function getLabels(datasets) {
+	const labels = [];
+	for (let entry of datasets) {
+		for (let point of entry.data) {
+			if (!labels.includes(point.x)) {
+				labels.push(point.x);
+			}
+		}
+	}
+	labels.sort();
+	return labels;
+}
+
 function filterData(datasets) {
 	return datasets;
 }

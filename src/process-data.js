@@ -45,14 +45,14 @@ function processRankingData(ranking, date, result) {
 		}
 		let ranked = false;
 		for (const rankInfo of result[uid].ranking) {
-			if (rankInfo[0] === date) {
-				rankInfo[1] = Math.min(rankInfo[1], parseInt(rank));
+			if (rankInfo.x === date) {
+				rankInfo.y = Math.min(rankInfo.y, parseInt(rank));
 				ranked = true;
 				break;
 			}
 		}
 		if (!ranked) {
-			result[uid].ranking.push([date, parseInt(rank)]);
+			result[uid].ranking.push({ x: date, y: parseInt(rank) });
 		}
 	}
 }
@@ -60,7 +60,7 @@ function processRankingData(ranking, date, result) {
 function sortData(data) {
 	const collator = new Intl.Collator();
 	for (const entry of Object.keys(data)) {
-		data[entry].ranking.sort((a, b) => collator.compare(a[0], b[0]));
+		data[entry].ranking.sort((a, b) => collator.compare(a.x, b.x));
 	}
 }
 
