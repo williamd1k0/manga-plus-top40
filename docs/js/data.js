@@ -5,7 +5,8 @@ layout: null
 function getAllData() {
 	const randomColors = randomColor({count: {{ site.data.rankings | size }} });
 	return [
-		{% for entry_data in site.data.rankings %}
+		{% assign rankings_sorted = site.data.rankings | sort %}
+		{% for entry_data in rankings_sorted %}
 		{% assign entry = entry_data[1] %}
 		{
 			label:{{ entry.title | jsonify }},
