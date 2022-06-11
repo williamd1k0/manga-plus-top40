@@ -18,11 +18,12 @@ const dataFilters = {
 	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 };
 const data = filterData(getAllData(), dataFilters);
+const labels = getLabels(data);
 
 const config = {
 	type: 'line',
 	data: {
-		labels: getLabels(data),
+		labels: labels,
 		datasets: data,
 	},
 	options: {
@@ -78,4 +79,13 @@ const config = {
 document.addEventListener('DOMContentLoaded', () => {
 	const ctx = document.getElementById('chart-all');
 	const chartAll = new Chart(ctx, config);
+	const allLabels = getLabels(getAllData());
+	const startDataInput = document.querySelector('input[name=from]');
+	startDataInput.value = dataFilters.startDate || allLabels[0];
+	const endDateInput = document.querySelector('input[name=to]');
+	endDateInput.value = dataFilters.endDate || allLabels[allLabels.length-1];
+	for (let dateInput of [startDataInput, endDateInput]) {
+		dateInput.min = allLabels[0];
+		dateInput.max = allLabels[allLabels.length-1];
+	}
 });
