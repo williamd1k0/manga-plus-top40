@@ -13,7 +13,11 @@ function handleLeave(evt, item, legend) {
 	legend.chart.update();
 }
 
-const data = filterData(getAllData());
+const dataFilters = {
+	startDate: location.search.match(/from=(\d{4}-\d{2}-\d{2})/i)?.at(1),
+	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
+};
+const data = filterData(getAllData(), dataFilters);
 
 const config = {
 	type: 'line',

@@ -41,6 +41,18 @@ function getLabels(datasets) {
 	return labels;
 }
 
-function filterData(datasets) {
-	return datasets;
+function filterData(datasets, filters) {
+	if (filters.startDate) {
+		const startDate = filters.startDate;
+		for (let entry of datasets) {
+			entry.data = entry.data.filter((d) => d.x.localeCompare(startDate) >= 0);
+		}
+	}
+	if (filters.endDate) {
+		const endDate = filters.endDate;
+		for (let entry of datasets) {
+			entry.data = entry.data.filter((d) => d.x.localeCompare(endDate) <= 0);
+		}
+	}
+	return datasets.filter((e) => e.data.length > 0);
 }
