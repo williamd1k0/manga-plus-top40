@@ -1,0 +1,12 @@
+---
+layout: default
+---
+
+<ul>
+	{% for entry_data in site.data.rankings %}
+	{% assign entry = entry_data[1] %}
+	<li>
+		{{ entry.title }}
+	</li>
+	{% endfor %}
+</ul>

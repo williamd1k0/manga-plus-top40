@@ -1,0 +1,9 @@
+title: Manga+ Top 40
+baseurl: ""
+url: ""
+exclude:
+- node_modules/
+- .jekyll-cache/
+- .github/
+- src/
+- scraped-data/
