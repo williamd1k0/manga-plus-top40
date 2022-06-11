@@ -18,6 +18,7 @@ function getAllData() {
 			lightColor: randomColors[{{ forloop.index }}-1]+'cc',
 			hiddenColor: randomColors[{{ forloop.index }}-1]+'1d',
 			fill: false,
+			hidden: false,
 			tension: 0.3,
 			animations: {
 				y: {

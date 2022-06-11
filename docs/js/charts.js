@@ -88,4 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		dateInput.min = allLabels[0];
 		dateInput.max = allLabels[allLabels.length-1];
 	}
+	document.querySelector('#toggle-selection-btn').addEventListener('click', () => {
+		for (let i=0; i < chartAll.data.datasets.length; i++) {
+			const hidden = chartAll.getDatasetMeta(i).hidden;
+			chartAll.getDatasetMeta(i).hidden = !hidden;
+		}
+		chartAll.update();
+	});
 });
