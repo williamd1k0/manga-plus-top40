@@ -20,5 +20,6 @@ jobs:
         cache: 'yarn'
     - run: yarn install
     - run: make today
+    - run: make yaml
     - uses: zwaldowski/git-commit-action@v1
     - uses: ad-m/github-push-action@master
