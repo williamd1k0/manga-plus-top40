@@ -14,6 +14,13 @@ function getAllData() {
 			backgroundColor: randomColors[{{ forloop.index }}-1],
 			fill: false,
 			tension: 0.3,
+			animations: {
+				y: {
+					easing: 'easeOutBounce',
+					duration: 300,
+					delay: 300+{{ forloop.index }}*10
+				}
+			}
 		},
 		{% endfor %}
 	];
