@@ -26,7 +26,7 @@ const config = {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Manga+ Top 40 (WIP)'
+				text: 'Manga+ Top 40'
 			},
 			legend: {
 				position: 'bottom',
@@ -35,7 +35,7 @@ const config = {
 			},
 		},
 		interaction: {
-			intersect: false,
+			intersect: true,
 		},
 		scales: {
 			x: {
