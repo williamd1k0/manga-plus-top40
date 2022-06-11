@@ -1,14 +1,14 @@
 function handleHover(evt, item, legend) {
 	for (let entry of legend.chart.data.datasets) {
-		entry.backgroundColor = entry.label === item.text ? entry.backgroundColor : entry.backgroundColor+'1D';
-		entry.borderColor = entry.label === item.text ? entry.borderColor : entry.borderColor+'1D';
+		entry.backgroundColor = entry.label === item.text ? entry.darkColor : entry.hiddenColor;
+		entry.borderColor = entry.label === item.text ? '#000000cc' : entry.hiddenColor;
 	}
 	legend.chart.update();
 }
 function handleLeave(evt, item, legend) {
 	for (let entry of legend.chart.data.datasets) {
-		entry.backgroundColor = entry.backgroundColor.length === 9 ? entry.backgroundColor.slice(0, -2) : entry.backgroundColor;
-		entry.borderColor = entry.borderColor.length === 9 ? entry.borderColor.slice(0, -2) : entry.borderColor;
+		entry.backgroundColor = entry.darkColor;
+		entry.borderColor = entry.lightColor;
 	}
 	legend.chart.update();
 }

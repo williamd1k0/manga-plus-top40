@@ -12,8 +12,11 @@ function getAllData() {
 		{
 			label:{{ entry.title | jsonify }},
 			data: {{ entry.ranking | jsonify }},
-			borderColor: randomColors[{{ forloop.index }}-1],
+			borderColor: randomColors[{{ forloop.index }}-1]+'bb',
 			backgroundColor: randomColors[{{ forloop.index }}-1],
+			darkColor: randomColors[{{ forloop.index }}-1],
+			lightColor: randomColors[{{ forloop.index }}-1]+'cc',
+			hiddenColor: randomColors[{{ forloop.index }}-1]+'1d',
 			fill: false,
 			tension: 0.3,
 			animations: {
