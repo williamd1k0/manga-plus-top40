@@ -1,5 +1,6 @@
 ---
 layout: null
+permalink: /js/data.js
 ---
 
 function getAllData() {

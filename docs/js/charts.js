@@ -26,7 +26,7 @@ const config = {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Manga+ Top 40'
+				text: 'Manga Plus Top 40'
 			},
 			legend: {
 				position: 'bottom',
