@@ -4,7 +4,7 @@ var slugify = require('slugify');
 const yaml = require('js-yaml');
 
 const INPUT_DIR = "scraped-data";
-const OUTPUT_DIR = "_data/rankings";
+const OUTPUT_DIR = "docs/_data/rankings";
 /* Jekyll Data Scheme
 title: <manga title>
 ranking:
