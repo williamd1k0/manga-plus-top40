@@ -31,7 +31,7 @@ const config = {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Manga Plus Top 40'
+				text: 'MANGA Plus Top 40'
 			},
 			legend: {
 				position: 'bottom',
