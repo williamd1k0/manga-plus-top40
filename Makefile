@@ -1,11 +1,11 @@
-.PHONY: today archived yaml
+.PHONY: today yaml archived
 
 today:
 	@echo Fetching: today
 	@node src/scrap-data.js -o
 
 yaml:
-	rm -r -- docs/_data/rankings
+	@rm -r -- docs/_data/rankings
 	@node src/process-data.js
 
 archived:
