@@ -4,6 +4,8 @@ The purpose of this project is to extract, archive and show data related to the 
 
 The original Hottest Manga list only shows the current state of the top 40 manga titles, so there is no history/log or charts. Therefore, this project aims to create a data history and generate an interactive chart of the Hottest Manga list.
 
+![chart-sample](resources/chart-sample.png)
+
 ## Notice of Non-Affiliation and Disclaimer
 
 This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with "MANGA Plus by SHUEISHA", SHUEISHA Inc., or any of its subsidiaries or its affiliates. The official MANGA Plus website can be found at https://mangaplus.shueisha.co.jp/.
