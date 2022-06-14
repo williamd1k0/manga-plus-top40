@@ -6,10 +6,18 @@ layout: empty
 	{% include chartsjs.html %}
 </head>
 <body>
+	<div style="position: fixed; right: 4px; top: 4px;">
+		<a href="https://mangaplus.shueisha.co.jp/">
+			<img src="https://img.shields.io/static/v1?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABFFBMVEUAAAAzMzMjGRUiGBQjFxQjFxQiGBQkGhZAQAAgFxIiFxQiFxQiFxMjGhIhFhYjFxMiGBQgFxMhGRUiFxQiGRQiGBQjFxMhFxQjFhYuFxchFhYiFxQiFxQkFRUXFxciGRQiFxUiFxQiFhQiGBQiFxQiFxUfGRMiFxciFxQiFhQiFhMiFxQAAAAiFxQiFxQiFxQiFxQiFxQjFxckGxIiFxUjFhQiFhMhGBMkGxseHg8cHBwhGBMiFxQjFxUhFxQiEREiFxQiFhUcHA4hFxUiFxMiFxQiFxQfGhQhFhQiFhQjFxUgICAaGhojGBUjFxUAAAAdFBQhGhQjFxEiFxQiFxQiFxQiFxQhFhUgGhMAAAAiFxT///8E6erKAAAAWnRSTlMABUiAm5p+RgQ426VEHRdC2Tc+3DSXhd06Cy794jELaIj+441xriktxM2f+wLmzJjovRYc031pbBwRCTbebb8PtZUSxt/18jJz2FcICmBuARonLKPk1OqgKAM0gR8rAAAAAWJLR0RbdLyVNAAAAAd0SU1FB+YGDhISOsIMDtMAAAABb3JOVAHPoneaAAAArUlEQVQY022PxRLCUAxFA0WLF3k4FCgOxd3d3f//Q8ibTqcsuIuT3DOTRQD+RKVmNFqd3iB3I2syW6w2jd0hdc7pAnB7AFzES7uP+JGBICJEwshIlGo+RhlPIISkIlJpRAayhJBPDsHkCyiKIHyk8CKUUJQrykm1hqg3FNEUES3SlkWn2+Nw9AdDgNEYYDKdzRdLNKv1Zguw27MHOJ7O9PRyvbH3x/P1+/D7LW9fNDwVYIpkCtcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDYtMTRUMTg6MTg6NTgrMDA6MDCC3c6JAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA2LTE0VDE4OjE4OjU3KzAwOjAwBcgG3AAAAABJRU5ErkJggg==&label=JUMP%20Plus&message=read&color=red" />
+		</a>
+		<a href="https://github.com/williamd1k0/manga-plus-top40">
+			<img src="https://img.shields.io/static/v1?style=flat&logo=github&label=GitHub&message=fork&color=purple" />
+		</a>
+	</div>
 	<form action="" style="position: fixed;">
 		<input name="from" type="date" />~<input name="to" type="date" />
 		<button type="submit">Apply</button>
 	</form>
 	<canvas id="chart-all"></canvas>
-	<button id="toggle-selection-btn" style="position: fixed; bottom: 10px;">Toggle Selection</button>
+	<button id="toggle-selection-btn" style="position: fixed; bottom: 10px;">Toggle Titles</button>
 </body>
