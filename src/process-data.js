@@ -3,8 +3,17 @@ const path = require('path');
 var slugify = require('slugify');
 const yaml = require('js-yaml');
 
-const INPUT_DIR = "scraped-data";
-const OUTPUT_DIR = "docs/_data/rankings";
+const ARGS = process.argv.slice(2);
+
+let INPUT_DIR = "scraped-data";
+if (ARGS.includes('-i')) {
+	INPUT_DIR = ARGS[ARGS.indexOf('-i')+1];
+}
+let OUTPUT_DIR = "docs/_data/rankings";
+if (ARGS.includes('-o')) {
+	OUTPUT_DIR = ARGS[ARGS.indexOf('-o')+1];
+}
+
 /* Jekyll Data Scheme
 title: <manga title>
 ranking:

@@ -13,14 +13,17 @@ if (ARGS.includes('-a')) {
 		URL = "https://web.archive.org/web/"+archiveID+"/"+URL;
 		nowDate = [archiveID.substr(0, 4), archiveID.substr(4, 2), archiveID.substr(6, 2)].join('-');
 }
-const OUTPUT_DIR = "scraped-data";
+let OUTPUT_DIR = "scraped-data";
+if (ARGS.includes('-d')) {
+	OUTPUT_DIR = ARGS[ARGS.indexOf('-d')+1];
+}
 const year = nowDate.split('-')[0];
 const dir = path.join(OUTPUT_DIR, year);
 const outputPath = path.join(dir, nowDate+'.tsv');
 
 
 (async () => {
-	if (await fileExists(outputPath) && !ARGS.includes('-o')) {
+	if (await fileExists(outputPath) && !ARGS.includes('-O')) {
 		process.exit();
 	}
 	const browser = await puppeteer.launch();
