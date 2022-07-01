@@ -1,4 +1,4 @@
-.PHONY: yaml archived
+.PHONY: yaml archived test
 
 SCRAPED_DIR := scraped-data
 PROCESSED_DIR := docs/_data/rankings
@@ -22,3 +22,6 @@ archived:
 		echo Fetching: $${entry}; \
 		node src/scrap-data.js -d ${SCRAPED_DIR} -a $${entry}; \
 	done
+
+test:
+	@node src/scrap-data.js -n
