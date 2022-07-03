@@ -13,6 +13,7 @@ let OUTPUT_DIR = "docs/_data/rankings";
 if (ARGS.includes('-o')) {
 	OUTPUT_DIR = ARGS[ARGS.indexOf('-o')+1];
 }
+const M4 = ARGS.includes('--m4');
 
 /* Jekyll Data Scheme
 title: <manga title>
@@ -82,11 +83,26 @@ function sortData(data) {
 	}
 }
 
+function toM4(data) {
+	return `changequote(<!,!>)dnl
+define(<!_title_!>, <!${data.title}!>)dnl
+define(<!_ranking_!>, <!${JSON.stringify(data.ranking)}!>)dnl
+changequote\`'dnl`;
+}
+
 async function saveTitleData(uid, data) {
-	console.log(uid, data);
-	const outputPath = path.join(OUTPUT_DIR, uid+'.yml');
-	const yamlData = yaml.dump(data);
-	await fs.writeFile(outputPath, yamlData, 'utf8');
+	//console.log(uid, data);
+	let dumpData;
+	let outputPath;
+	if (M4) {
+		outputPath = path.join(OUTPUT_DIR, uid+'.m4');
+		dumpData = toM4(data);
+	} else {
+		outputPath = path.join(OUTPUT_DIR, uid+'.yml');
+		dumpData = yaml.dump(data);
+	}
+	console.log(uid, dumpData);
+	await fs.writeFile(outputPath, dumpData, 'utf8');
 }
 
 (async () => {

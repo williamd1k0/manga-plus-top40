@@ -1,0 +1,1 @@
+define(`content', `define(`_content_', $1)')

@@ -1,0 +1,1 @@
+define(`layout', `include(layouts/$1.html.m4)')

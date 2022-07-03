@@ -1,0 +1,1 @@
+define(`includedata', `include(`data/$1.m4')')
