@@ -1,3 +1,49 @@
+function getLabels(datasets) {
+	const labels = [];
+	for (let entry of datasets) {
+		for (let point of entry.data) {
+			if (!labels.includes(point.x)) {
+				labels.push(point.x);
+			}
+		}
+	}
+	labels.sort();
+	return labels;
+}
+
+function getLastDate(datasets) {
+	const labels = getLabels(datasets);
+	return labels[labels.length-1];
+}
+
+function filterData(datasets, filters) {
+	if (filters.missingLimit) {
+		const limit = parseInt(filters.missingLimit);
+		if (limit >= 0) {
+			const lastDate = new Date(getLastDate(datasets));
+			let limitDate = new Date(lastDate.valueOf());
+			limitDate.setDate(lastDate.getDate()-limit);
+			datasets = datasets.filter((e) => {
+				const lastEntry = new Date(e.data[e.data.length-1].x);
+				return lastEntry.getTime() >= limitDate.getTime()
+			});
+		}
+	}
+	if (filters.startDate) {
+		const startDate = filters.startDate;
+		for (let entry of datasets) {
+			entry.data = entry.data.filter((d) => d.x.localeCompare(startDate) >= 0);
+		}
+	}
+	if (filters.endDate) {
+		const endDate = filters.endDate;
+		for (let entry of datasets) {
+			entry.data = entry.data.filter((d) => d.x.localeCompare(endDate) <= 0);
+		}
+	}
+	return datasets.filter((e) => e.data.length > 0);
+}
+
 function handleHover(evt, item, legend) {
 	for (let entry of legend.chart.data.datasets) {
 		entry.backgroundColor = entry.label === item.text ? entry.darkColor : entry.hiddenColor;
@@ -16,6 +62,7 @@ function handleLeave(evt, item, legend) {
 const dataFilters = {
 	startDate: location.search.match(/from=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
+	missingLimit: location.search.match(/missinglimit=(\d+)/i)?.at(1),
 };
 const data = filterData(getAllData(), dataFilters);
 const labels = getLabels(data);
