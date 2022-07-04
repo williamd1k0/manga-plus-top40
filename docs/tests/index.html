@@ -2,11 +2,11 @@
 layout: default
 ---
 
-<ul>
-	{% for entry_data in site.data.rankings %}
-	{% assign entry = entry_data[1] %}
-	<li>
-		{{ entry.title }}
-	</li>
-	{% endfor %}
-</ul>
+<h1>Ranking Data</h1>
+{% assign rankings_sorted = site.data.rankings | sort %}
+{% for entry_data in rankings_sorted %}
+{% assign entry = entry_data[1] %}
+	<h2>{{ entry_data.first }}</h2>
+	<p>title: "{{ entry.title }}"</p>
+	<p>ranking: {{ entry.ranking | jsonify }}</p>
+{% endfor %}
