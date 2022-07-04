@@ -7,7 +7,7 @@ site_title := MANGA Plus Top 40
 
 M4_CMD = m4 ${includes} -D_site_title_="${site_title}" -D_data_=${data_defines} $< > $@
 
-test: tests/index.html
+test: tests/index.html js/data.js
 
 %.html: %.html.m4 ${data_sources}
 	$(M4_CMD)

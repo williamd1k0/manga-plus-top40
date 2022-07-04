@@ -85,7 +85,7 @@ function sortData(data) {
 
 function toM4(data) {
 	return `changequote(<!,!>)dnl
-define(<!_title_!>, <!${data.title}!>)dnl
+define(<!_title_!>, <!${JSON.stringify(data.title)}!>)dnl
 define(<!_ranking_!>, <!${JSON.stringify(data.ranking)}!>)dnl
 changequote\`'dnl`;
 }
