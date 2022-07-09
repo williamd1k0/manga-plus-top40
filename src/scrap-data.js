@@ -6,6 +6,7 @@ const fileExists = async p => !!(await fs.stat(p).catch(e => false));
 
 const ARGS = process.argv.slice(2);
 const NO_WRITE = ARGS.includes("-n");
+const OVERWRITE = ARGS.includes('-O');
 let URL = "https://mangaplus.shueisha.co.jp/manga_list/hot";
 const now = new Date();
 let nowDate = now.toISOString().split('T')[0];
@@ -24,16 +25,15 @@ const outputPath = path.join(dir, nowDate+'.tsv');
 
 
 (async () => {
-	if (await fileExists(outputPath) && !ARGS.includes('-O')) {
-		process.exit();
+	if (!NO_WRITE && await fileExists(outputPath) && !OVERWRITE) {
+		process.exit(1);
 	}
 	const browser = await puppeteer.launch();
 	const page = await browser.newPage();
 	await page.goto(URL, {
-		timeout: 0,
 		waitUntil: ['domcontentloaded', 'networkidle0'],
 	});
-	await page.waitForTimeout(1000);
+	await page.waitForSelector('div[class^=HotTitle-module_container]', {timeout: 5000});
 	const entries = await page.$$('div[class^=HotTitle-module_container]');
 	let rank = 1;
 	let content = '';
