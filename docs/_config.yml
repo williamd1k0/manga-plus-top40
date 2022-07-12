@@ -1,5 +1,5 @@
 title: MANGA Plus Top 40
-baseurl: "/manga-plus-top40"
+baseurl: "/manga-plus-top40/"
 url: "https://tumeo.space/manga-plus-top40"
 exclude:
 - .jekyll-cache/
