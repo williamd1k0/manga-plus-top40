@@ -10,7 +10,8 @@ function getAllData() {
 		{% for entry_data in rankings_sorted %}
 		{% assign entry = entry_data[1] %}
 		{
-			label:{{ entry.title | jsonify }},
+			titleId: {{ entry_data.first | jsonify }},
+			label: {{ entry.title | jsonify }},
 			data: {{ entry.ranking | jsonify }},
 			borderColor: randomColors[{{ forloop.index }}-1]+'bb',
 			backgroundColor: randomColors[{{ forloop.index }}-1],

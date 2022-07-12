@@ -17,6 +17,9 @@ function getLastDate(datasets) {
 }
 
 function filterData(datasets, filters) {
+	if (filters.titles) {
+		datasets = datasets.filter((e) => filters.titles.includes(e.titleId));
+	}
 	if (filters.missingLimit) {
 		const limit = parseInt(filters.missingLimit);
 		if (limit >= 0) {
@@ -63,6 +66,7 @@ const dataFilters = {
 	startDate: location.search.match(/from=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 	missingLimit: location.search.match(/missinglimit=(\d+)/i)?.at(1),
+	titles: location.search.match(/titles=([\w\d_\-,]+)/i)?.at(1).replace('-', '_').split(','),
 };
 const data = filterData(getAllData(), dataFilters);
 const labels = getLabels(data);
