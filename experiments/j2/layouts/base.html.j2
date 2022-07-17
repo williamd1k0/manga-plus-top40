@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+		<title>{% block title %}{{ site.title }}{% endblock %}</title>
+		<style>
+			a {
+				text-decoration: none;
+			}
+		</style>
+		{% endblock %}
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+	</body>
+</html>

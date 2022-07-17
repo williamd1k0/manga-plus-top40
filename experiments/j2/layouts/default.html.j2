@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<!-- TODO: Implement includes -->
-		<title> {{ page.title }} | {{ site.title }}</title>
-	</head>
-	<body>
-		{{ content }}
-	</body>
-</html>
+{% extends "layouts/base.html.j2" %}
+{% block title %}{{ page.title }} | {{ super() }}{% endblock %}
+{% block head %}
+	{{ super() }}
+{% endblock %}
