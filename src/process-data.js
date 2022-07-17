@@ -13,7 +13,8 @@ let OUTPUT_DIR = "docs/_data/rankings";
 if (ARGS.includes('-o')) {
 	OUTPUT_DIR = ARGS[ARGS.indexOf('-o')+1];
 }
-const M4 = ARGS.includes('--m4');
+const TO_M4 = ARGS.includes('--m4');
+const TO_JSON = ARGS.includes('--json');
 
 /* Jekyll Data Scheme
 title: <manga title>
@@ -94,9 +95,12 @@ async function saveTitleData(uid, data) {
 	//console.log(uid, data);
 	let dumpData;
 	let outputPath;
-	if (M4) {
+	if (TO_M4) {
 		outputPath = path.join(OUTPUT_DIR, uid+'.m4');
 		dumpData = toM4(data);
+	} else if (TO_JSON) {
+		outputPath = path.join(OUTPUT_DIR, uid+'.json');
+		dumpData = JSON.stringify(data);
 	} else {
 		outputPath = path.join(OUTPUT_DIR, uid+'.yml');
 		dumpData = yaml.dump(data);
