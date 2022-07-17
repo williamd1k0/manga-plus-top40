@@ -2,5 +2,11 @@
 
 {% block content %}
 <h1>Ranking Data</h1>
-<!-- TODO: Implement data iteration -->
+
+{% for entry in data %}
+	<h2>{{ entry }}</h2>
+	<p>title: "{{ data[entry].title }}"</p>
+	<p>ranking: {{ data[entry].ranking }}</p>
+{% endfor %}
+
 {% endblock %}

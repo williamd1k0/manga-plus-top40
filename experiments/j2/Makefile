@@ -2,34 +2,39 @@ SITE_CONF := site.yml
 INCLUDES := layouts
 EXCLUDES :=
 SRC := src
+DATA := data
 OUT := out
 
 TMP := .tmp
 GLOBAL_EXCLUDES := *.meta
-GLOBAL_SOURCES := ${TMP}/site.json
-GLOBAL_TARGET := ${TMP}/globals.json
+DATA_SOURCES := $(wildcard ${DATA}/*.yml)
+DATA_TARGETS := $(patsubst ${DATA}/%.yml, ${TMP}/data/%.json, ${DATA_SOURCES})
+GLOBALS_SOURCES := ${TMP}/site.json ${TMP}/data.json
+GLOBALS_TARGET := ${TMP}/globals.json
 ALL_EXCLUDES := $(patsubst %, -E '%', ${GLOBAL_EXCLUDES} ${EXCLUDES})
-COPY_SOURCES = $(shell fd . ${SRC} -tf -E '*.j2' ${ALL_EXCLUDES})
+COPY_SOURCES := $(shell fd . ${SRC} -tf -E '*.j2' ${ALL_EXCLUDES})
 TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd . ${SRC} -e j2 -tf ${ALL_EXCLUDES}))
 TARGETS = $(patsubst ${SRC}/%,${OUT}/%, ${COPY_SOURCES} ${TEMPLATE_SOURCES})
 
 
-all: ${TMP} ${GLOBAL_TARGET} $(patsubst %, ${TMP}/%, ${INCLUDES}) ${OUT} ${TARGETS}
-
-${TMP}:
-	@mkdir -p $@
+all: ${GLOBALS_TARGET} $(patsubst %, ${TMP}/%, ${INCLUDES}) ${TARGETS}
 
 ${TMP}/site.json: ${SITE_CONF}
+	@mkdir -p ${TMP}
 	@yj $< | jq '. | { site: . }' > $@
 
-${GLOBAL_TARGET}: ${GLOBAL_SOURCES}
+${TMP}/data/%.json: ${DATA}/%.yml
+	@mkdir -p ${TMP}/data
+	@yj $< | jq '. | { $(patsubst %.yml, %, ${<F}): . }' > $@
+
+${TMP}/data.json: ${DATA_TARGETS}
+	@jq -s add $^ | jq '. | { data: . }' > $@
+
+${GLOBALS_TARGET}: ${GLOBALS_SOURCES}
 	@jq -s add $^ > $@
 
 ${TMP}/%: %
 	@cp -r '$<' '$@'
-
-${OUT}:
-	@mkdir -p $@
 
 ${OUT}/%: ${SRC}/%.j2
 	@printf "Processing '%s'\n" '$<'
@@ -38,11 +43,12 @@ ${OUT}/%: ${SRC}/%.j2
 		yj '$<'.meta | jq '. | { page: . }' > ${TMP}/page.json; \
 	fi
 	@cp '$<' ${TMP}/input.j2
-	@jq -s add ${GLOBAL_TARGET} ${TMP}/page.json > ${TMP}/input.json
+	@jq -s add ${GLOBALS_TARGET} ${TMP}/page.json > ${TMP}/input.json
 	@jinja2 --format json '${TMP}/input.j2' '${TMP}/input.json' > ${TMP}/output
 	@mkdir -p '$(@D)'
 	@cp '${TMP}/output' '$@'
 
 ${OUT}/%: ${SRC}/%
 	@printf "Copying '%s'\n" '$<'
-	@cp -r '$<' '$@'
+	@mkdir -p '$(@D)'
+	@cp '$<' '$@'
