@@ -10,11 +10,7 @@ It worked, but in an absurdly chaotic and unstable way.
 Make will be used for building.
 It already managed to be able to build the M4 experiment.
 
-> TODO
+> DONE (OK)
 ## Jinja
-Jinja is a python lib but there are some standalone (and somewhat limited) cli implementations.
-
-### Basic Concepts
-- Layouts: can be implemented by processing a layout template after processing the page/content template;
-- Page and Layout configs: can be stored the same way as Jekyll (yaml header) and parsed using `csplit` (or something better and simpler from coreutils);
-- Configs format: env, json, yaml (idk which one yet, probably env to avoid more deps);
+I tried using a standalone jinja2 (template engine) cli implementation and it worked great.
+Alongside with jinja2-cli, I'm using fd-find (to find all site resources), yj (to convert yaml to json), jq (to parse/extract json data) and make (to build everything).
