@@ -6,6 +6,7 @@ DATA := data
 OUT := out
 
 TMP := .tmp
+ALL_INCLUDES := $(patsubst %, ${TMP}/%, $(shell fd -tf . ${INCLUDES}))
 GLOBAL_EXCLUDES := *.meta
 DATA_SOURCES := $(wildcard ${DATA}/*.yml)
 DATA_TARGETS := $(patsubst ${DATA}/%.yml, ${TMP}/data/%.json, ${DATA_SOURCES})
@@ -17,7 +18,7 @@ TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd . ${SRC} -e j2 -tf ${ALL_EXCLU
 TARGETS = $(patsubst ${SRC}/%,${OUT}/%, ${COPY_SOURCES} ${TEMPLATE_SOURCES})
 
 
-all: ${GLOBALS_TARGET} $(patsubst %, ${TMP}/%, ${INCLUDES}) ${TARGETS}
+all: ${GLOBALS_TARGET} ${ALL_INCLUDES} ${TARGETS}
 
 ${TMP}/site.json: ${SITE_CONF}
 	@mkdir -p ${TMP}
@@ -36,7 +37,7 @@ ${GLOBALS_TARGET}: ${GLOBALS_SOURCES}
 ${TMP}/%: %
 	@cp -r '$<' '$@'
 
-${OUT}/%: ${SRC}/%.j2
+${OUT}/%: ${SRC}/%.j2 ${GLOBALS_TARGET} ${ALL_INCLUDES}
 	@printf "Processing '%s'\n" '$<'
 	@echo > ${TMP}/page.json
 	@if test -f '$<'.meta; then \
