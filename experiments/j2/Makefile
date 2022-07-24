@@ -14,7 +14,7 @@ ifneq "${MAKECMDGOALS}" "init"
 ifneq "${INCLUDES}" ""
 ALL_INCLUDES := $(patsubst %, ${TMP}/%, $(shell fd -tf . ${INCLUDES}))
 endif
-GLOBAL_EXCLUDES := *.j2 *.meta
+GLOBAL_EXCLUDES := *.meta
 ifneq "${DATA}" ""
 DATA_SOURCES := $(shell fd -tf -e yml . ${DATA})
 DATA_TARGETS := $(patsubst ${DATA}/%.yml, ${TMP}/data/%.json, ${DATA_SOURCES})
@@ -24,7 +24,7 @@ GLOBALS_SOURCES := ${TMP}/site.json
 endif
 GLOBALS_TARGET := ${TMP}/globals.json
 ALL_EXCLUDES := $(patsubst %, -E '%', ${GLOBAL_EXCLUDES} ${EXCLUDES})
-COPY_SOURCES := $(shell fd -tf . ${SRC} ${ALL_EXCLUDES})
+COPY_SOURCES := $(shell fd -tf . ${SRC} -E '*.j2' ${ALL_EXCLUDES})
 TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd -tf -e j2 . ${SRC} ${ALL_EXCLUDES}))
 TARGETS = $(patsubst ${SRC}/%,${OUT}/%, ${COPY_SOURCES} ${TEMPLATE_SOURCES})
 endif
@@ -95,4 +95,4 @@ init:
 		> ${SRC}/hello.txt.j2; \
 	fi
 
-.PHONY: init
+.PHONY: init all
