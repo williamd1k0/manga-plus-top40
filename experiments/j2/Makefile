@@ -14,9 +14,9 @@ ifneq "${MAKECMDGOALS}" "init"
 ifneq "${INCLUDES}" ""
 ALL_INCLUDES := $(patsubst %, ${TMP}/%, $(shell fd -tf . ${INCLUDES}))
 endif
-GLOBAL_EXCLUDES := *.meta
+GLOBAL_EXCLUDES := *.j2 *.meta
 ifneq "${DATA}" ""
-DATA_SOURCES := $(wildcard ${DATA}/*.yml)
+DATA_SOURCES := $(shell fd -tf -e yml . ${DATA})
 DATA_TARGETS := $(patsubst ${DATA}/%.yml, ${TMP}/data/%.json, ${DATA_SOURCES})
 GLOBALS_SOURCES := ${TMP}/site.json ${TMP}/data.json
 else
@@ -24,8 +24,8 @@ GLOBALS_SOURCES := ${TMP}/site.json
 endif
 GLOBALS_TARGET := ${TMP}/globals.json
 ALL_EXCLUDES := $(patsubst %, -E '%', ${GLOBAL_EXCLUDES} ${EXCLUDES})
-COPY_SOURCES := $(shell fd . ${SRC} -tf -E '*.j2' ${ALL_EXCLUDES})
-TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd . ${SRC} -e j2 -tf ${ALL_EXCLUDES}))
+COPY_SOURCES := $(shell fd -tf . ${SRC} ${ALL_EXCLUDES})
+TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd -tf -e j2 . ${SRC} ${ALL_EXCLUDES}))
 TARGETS = $(patsubst ${SRC}/%,${OUT}/%, ${COPY_SOURCES} ${TEMPLATE_SOURCES})
 endif
 
@@ -47,6 +47,7 @@ ${GLOBALS_TARGET}: ${GLOBALS_SOURCES}
 	@jq -s add $^ > $@
 
 ${TMP}/%: %
+	@mkdir -p '$(@D)'
 	@cp -r '$<' '$@'
 
 ${OUT}/%: ${SRC}/%.j2 ${GLOBALS_TARGET} ${ALL_INCLUDES}
