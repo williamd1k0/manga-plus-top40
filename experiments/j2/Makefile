@@ -1,11 +1,15 @@
+# Default configs
 SITE_CONF := site.yml
-INCLUDES := layouts
+INCLUDES :=
 EXCLUDES :=
 SRC := src
-DATA := data
+DATA :=
 OUT := out
-
 TMP := .tmp
+
+# User-defined configs
+include build.mk
+
 ALL_INCLUDES := $(patsubst %, ${TMP}/%, $(shell fd -tf . ${INCLUDES}))
 GLOBAL_EXCLUDES := *.meta
 DATA_SOURCES := $(wildcard ${DATA}/*.yml)
