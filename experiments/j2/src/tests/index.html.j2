@@ -6,8 +6,8 @@
 
 {% for entry, entry_data in data | dictsort %}
 	<h2>{{ entry }}</h2>
-	<p>title: "{{ entry_data.title }}"</p>
-	<p>ranking: {{ entry_data.ranking }}</p>
+	<p>title: {{ entry_data.title | tojson }}</p>
+	<p>ranking: {{ entry_data.ranking | tojson }}</p>
 {% endfor %}
 
 {% endblock %}
