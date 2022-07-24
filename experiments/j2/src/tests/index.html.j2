@@ -2,11 +2,12 @@
 
 {% block content %}
 <h1>Ranking Data</h1>
+<p>Total: {{ data | length }}</p>
 
-{% for entry in data %}
+{% for entry, entry_data in data | dictsort %}
 	<h2>{{ entry }}</h2>
-	<p>title: "{{ data[entry].title }}"</p>
-	<p>ranking: {{ data[entry].ranking }}</p>
+	<p>title: "{{ entry_data.title }}"</p>
+	<p>ranking: {{ entry_data.ranking }}</p>
 {% endfor %}
 
 {% endblock %}
