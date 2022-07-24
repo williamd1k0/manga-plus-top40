@@ -11,17 +11,24 @@ TMP := .tmp
 sinclude build.mk
 
 ifneq "${MAKECMDGOALS}" "init"
+ifneq "${INCLUDES}" ""
 ALL_INCLUDES := $(patsubst %, ${TMP}/%, $(shell fd -tf . ${INCLUDES}))
+endif
 GLOBAL_EXCLUDES := *.meta
+ifneq "${DATA}" ""
 DATA_SOURCES := $(wildcard ${DATA}/*.yml)
 DATA_TARGETS := $(patsubst ${DATA}/%.yml, ${TMP}/data/%.json, ${DATA_SOURCES})
 GLOBALS_SOURCES := ${TMP}/site.json ${TMP}/data.json
+else
+GLOBALS_SOURCES := ${TMP}/site.json
+endif
 GLOBALS_TARGET := ${TMP}/globals.json
 ALL_EXCLUDES := $(patsubst %, -E '%', ${GLOBAL_EXCLUDES} ${EXCLUDES})
 COPY_SOURCES := $(shell fd . ${SRC} -tf -E '*.j2' ${ALL_EXCLUDES})
 TEMPLATE_SOURCES = $(patsubst %.j2, %, $(shell fd . ${SRC} -e j2 -tf ${ALL_EXCLUDES}))
 TARGETS = $(patsubst ${SRC}/%,${OUT}/%, ${COPY_SOURCES} ${TEMPLATE_SOURCES})
 endif
+
 
 all: ${GLOBALS_TARGET} ${ALL_INCLUDES} ${TARGETS}
 
