@@ -39,9 +39,9 @@ jobs:
         uses: baptiste0928/cargo-install@v1
         with:
           crate: yj
-      - name: Install pip deps
+      - name: Install jinja2
         run: pip install jinja2-cli
-      - name: Build sake site
+      - name: Build Site
         run: make site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

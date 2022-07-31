@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: "Fetch today's manga+ ranking"
+name: "Fetch MANGA Plus ranking"
 
 on:
   schedule:
@@ -19,7 +16,7 @@ jobs:
         node-version: 16
         cache: 'yarn'
     - run: yarn install
-    - run: make today
-    - run: make yaml PROCESSED_DIR=docs/_data/rankings
+    - name: Fetch data
+      run: make today
     - uses: zwaldowski/git-commit-action@v1
     - uses: ad-m/github-push-action@master
