@@ -38,7 +38,7 @@ jobs:
       - name: Install yj
         uses: baptiste0928/cargo-install@v1
         with:
-          crage: yj
+          crate: yj
       - name: Install pip deps
         run: pip install jinja2-cli
       - name: Build sake site
