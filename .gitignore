@@ -1,9 +1,5 @@
 node_modules/
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
+experiments/m4/data/
 .tmp/
 site/out/
 site/data/
