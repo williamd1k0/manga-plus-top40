@@ -1,0 +1,13 @@
+{% extends "layouts/page.html.j2" %}
+
+{% block content %}
+<h1>Ranking Data</h1>
+<p>Total: {{ data | length }}</p>
+
+{% for entry, entry_data in data | dictsort %}
+	<h2>{{ entry }}</h2>
+	<p>title: {{ entry_data.title | tojson }}</p>
+	<p>ranking: {{ entry_data.ranking | tojson }}</p>
+{% endfor %}
+
+{% endblock %}

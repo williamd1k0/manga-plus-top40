@@ -1,7 +1,5 @@
-.PHONY: yaml archived test
-
 SCRAPED_DIR := scraped-data
-PROCESSED_DIR := docs/_data/rankings
+PROCESSED_DIR := site/data
 TODAY := $(shell date +%Y-%m-%d)
 YEAR := $(shell date +%Y)
 TODAY_TARGET := ${OUT_DIR}/${YEAR}/${TODAY}.tsv
@@ -23,5 +21,10 @@ archived:
 		node src/scrap-data.js -d ${SCRAPED_DIR} -a $${entry}; \
 	done
 
+site: yaml
+	@make -C site
+
 test:
 	@node src/scrap-data.js -n
+
+.PHONY: yaml archived site test
