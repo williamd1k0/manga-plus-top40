@@ -61,18 +61,17 @@ make today
 ```
 The data will be saved to `scraped-data/YYYY/YYYY-MM-DD.tsv`
 
->NOTE: This task is performed daily by [GitHub Actions](https://github.com/williamd1k0/manga-plus-top40/actions/workflows/fetch-ranking-workflow.yml).
+>NOTE: This task is performed daily by [GitHub Actions](https://github.com/williamd1k0/manga-plus-top40/actions/workflows/fetch-ranking.yml).
 
 ### Processing scraped data
 
-After scraping the data, it needs to be processed to be easily consumable by the website generator (Jekyll).
->See more about the data format here: https://jekyllrb.com/docs/datafiles/
+After scraping the data, it needs to be processed to be easily consumable by the website generator.
 
 To process the scraped data, stay in the repository root directory and run the following command:
 ```sh
 make yaml
 ```
->NOTE: This task is performed daily by [GitHub Actions](https://github.com/williamd1k0/manga-plus-top40/actions/workflows/fetch-ranking-workflow.yml).
+>NOTE: This task is already performed automatically by GitHub Pages Environment.
 
 ### Building the chart webpage
 
