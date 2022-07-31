@@ -36,15 +36,15 @@ or
 npm install
 ```
 
-### [Jekyll](https://jekyllrb.com/) (for webpage processing)
+### [Sake](https://github.com/williamd1k0/sake) (for webpage processing)
 
-Jekyll is very bloated software for anyone who wants to run it sporadically. I run and recommend running it inside a container ([Docker](https://www.docker.com/) or [Podman](https://podman.io/)).
-
-I use the following container image: [jekyll/minimal:3](https://hub.docker.com/layers/minimal/jekyll/minimal/3/images/sha256-b2f0232c1cb902d9e9a373441a36cf125853b326fb7ee30ecf0b8244009ee22b?context=explore) (Jekyll 4+ containers seem to be broken)
+It's a Makefile I created to generate simple static sites.
 
 ### [Make](https://www.gnu.org/software/make/) (for tasks)
 
 I like to use Make to write tasks (instead of using nodejs package scripts) because it's simpler and portable.
+
+>NOTE: Make is optional for data scraping and processing, but required for webpage processing.
 
 
 ## Usage
@@ -76,27 +76,16 @@ make yaml
 
 ### Building the chart webpage
 
-The webpage is built using only Jekyll, no Jekyll plugin/gem or UI framework is required.
+The webpage is built only with make, jinja2, fd, yj and jq.
+
+See the site generator project for more info: https://github.com/williamd1k0/sake
 
 The chart library ([Chart.js](https://www.chartjs.org/)) is loaded from a CDN.
 
->NOTE: Website sources are stored in the `docs` directory due to a GitHub Pages restriction. See more here: https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites
-
-Change to the `docs` directory and run the following commands to either build or test (build and start a local server):
+To process the webpage, change to the `site` directory and run the following command:
 
 ```sh
-jekyll build
+make
 ```
-or
-```sh
-jekyll serve
-```
-
-If you chose to use Jekyll inside a container:
-```sh
-podman run --rm -it -e JEKYLL_ROOTLESS=1 -v $PWD:/srv/jekyll --net=host jekyll/minimal:3 jekyll <build|serve>
-```
-
-I don't know the specific parameters for Docker because I only use Podman, so I recommend checking the image repository for more information: https://github.com/envygeeks/jekyll-docker
 
 >NOTE: This task is already performed automatically by GitHub Pages Environment, see the results here: https://tumeo.space/manga-plus-top40/.
