@@ -28,14 +28,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Install cargo deps
-        run: cargo install fd-find yj
-      - name: Install pip deps
-        run: pip install jinja2-cli
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v1
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Install cargo deps
+        run: cargo install fd-find yj
+      - name: Install pip deps
+        run: pip install jinja2-cli
       - name: Build sake site
         run: make site
       - name: Upload artifact
