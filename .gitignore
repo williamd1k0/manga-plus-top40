@@ -1,5 +1,5 @@
 node_modules/
 experiments/m4/data/
-.tmp/
+.cache/
 site/out/
 site/data/

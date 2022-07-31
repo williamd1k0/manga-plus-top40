@@ -4,4 +4,4 @@ EXCLUDES :=
 SRC := src
 DATA := data
 OUT := out
-TMP := .tmp
+CACHE := .cache
