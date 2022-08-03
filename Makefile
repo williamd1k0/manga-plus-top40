@@ -16,7 +16,7 @@ yaml:
 	@node src/process-data.js -i ${SCRAPED_DIR} -o ${PROCESSED_DIR}
 
 archived:
-	@for entry in $(shell cat resources/archived.ls); do \
+	@for entry in $(shell cat resources/archived.txt); do \
 		echo Fetching: $${entry}; \
 		node src/scrap-data.js -d ${SCRAPED_DIR} -a $${entry}; \
 	done
