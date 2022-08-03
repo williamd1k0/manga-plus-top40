@@ -1,4 +1,4 @@
-# MANGA Plus Top 40
+# ![icon](resources/mangaplus.png) MANGA Plus Top 40
 
 The purpose of this project is to extract, archive and show data related to the [MANGA Plus Hottest Manga](https://mangaplus.shueisha.co.jp/manga_list/hot) list.
 
