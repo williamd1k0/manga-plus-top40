@@ -8,7 +8,7 @@ today: ${TODAY_TARGET}
 
 ${TODAY_TARGET}:
 	@echo Fetching: ${TODAY}
-	@node src/scrap-data.js -d ${SCRAPED_DIR}
+	@node src/scrape-data.js -d ${SCRAPED_DIR}
 	@echo Saved to: $@
 
 yaml:
@@ -18,13 +18,13 @@ yaml:
 archived:
 	@for entry in $(shell cat resources/archived.txt); do \
 		echo Fetching: $${entry}; \
-		node src/scrap-data.js -d ${SCRAPED_DIR} -a $${entry}; \
+		node src/scrape-data.js -d ${SCRAPED_DIR} -a $${entry}; \
 	done
 
 site: yaml
 	@make -C site
 
 test:
-	@node src/scrap-data.js -n
+	@node src/scrape-data.js -n
 
 .PHONY: yaml archived site test

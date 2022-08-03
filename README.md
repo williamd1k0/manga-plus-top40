@@ -55,7 +55,7 @@ Follow the instructions below if you want to run this project locally:
 
 ### Scraping ranking data from MANGA Plus website
 
-To scrap new data, stay in the repository root directory and run the following command:
+To scrape new data, stay in the repository root directory and run the following command:
 ```sh
 make today
 ```
