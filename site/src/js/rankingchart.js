@@ -17,13 +17,13 @@ function getLastDate(datasets) {
 }
 
 function filterData(datasets, filters) {
+	const lastDate = new Date(getLastDate(datasets));
 	if (filters.titles) {
 		datasets = datasets.filter((e) => filters.titles.includes(e.titleId));
 	}
 	if (filters.missingLimit) {
 		const limit = parseInt(filters.missingLimit);
 		if (limit >= 0) {
-			const lastDate = new Date(getLastDate(datasets));
 			let limitDate = new Date(lastDate.valueOf());
 			limitDate.setDate(lastDate.getDate()-limit);
 			datasets = datasets.filter((e) => {
@@ -42,6 +42,14 @@ function filterData(datasets, filters) {
 		const endDate = filters.endDate;
 		for (let entry of datasets) {
 			entry.data = entry.data.filter((d) => d.x.localeCompare(endDate) <= 0);
+		}
+	}
+	if (filters.length) {
+		if (filters.length === 'ytd') {
+			const today = new Date();
+			for (let entry of datasets) {
+				entry.data = entry.data.filter((d) => d.x.localeCompare(today.getFullYear()) >= 0);
+			}
 		}
 	}
 	return datasets.filter((e) => e.data.length > 0);
@@ -67,6 +75,7 @@ const dataFilters = {
 	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 	missingLimit: location.search.match(/missinglimit=(\d+)/i)?.at(1),
 	titles: location.search.match(/titles=([\w\d_\-,]+)/i)?.at(1).replace('-', '_').split(','),
+	length: location.search.match(/length=(\d+[ymwd]|ytd)/i)?.at(1).toLowerCase(),
 };
 const data = filterData(getAllData(), dataFilters);
 const labels = getLabels(data);
@@ -132,6 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const chartAll = new Chart(ctx, config);
 	const allLabels = getLabels(getAllData());
 	const startDataInput = document.querySelector('input[name=from]');
+	if (dataFilters.length) {
+		if (dataFilters.length === 'ytd') {
+			const today = new Date();
+			dataFilters.startDate = today.getFullYear()+'-01-01';
+		}
+	}
 	startDataInput.value = dataFilters.startDate || allLabels[0];
 	const endDateInput = document.querySelector('input[name=to]');
 	endDateInput.value = dataFilters.endDate || allLabels[allLabels.length-1];
