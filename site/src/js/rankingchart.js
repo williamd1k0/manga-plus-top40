@@ -44,14 +44,6 @@ function filterData(datasets, filters) {
 			entry.data = entry.data.filter((d) => d.x.localeCompare(endDate) <= 0);
 		}
 	}
-	if (filters.range) {
-		if (filters.range === 'ytd') {
-			const today = new Date();
-			for (let entry of datasets) {
-				entry.data = entry.data.filter((d) => d.x.localeCompare(today.getFullYear()) >= 0);
-			}
-		}
-	}
 	return datasets.filter((e) => e.data.length > 0);
 }
 
