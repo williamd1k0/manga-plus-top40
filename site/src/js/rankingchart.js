@@ -44,8 +44,8 @@ function filterData(datasets, filters) {
 			entry.data = entry.data.filter((d) => d.x.localeCompare(endDate) <= 0);
 		}
 	}
-	if (filters.length) {
-		if (filters.length === 'ytd') {
+	if (filters.range) {
+		if (filters.range === 'ytd') {
 			const today = new Date();
 			for (let entry of datasets) {
 				entry.data = entry.data.filter((d) => d.x.localeCompare(today.getFullYear()) >= 0);
@@ -75,8 +75,36 @@ const dataFilters = {
 	endDate: location.search.match(/to=(\d{4}-\d{2}-\d{2})/i)?.at(1),
 	missingLimit: location.search.match(/missinglimit=(\d+)/i)?.at(1),
 	titles: location.search.match(/titles=([\w\d_\-,]+)/i)?.at(1).replace('-', '_').split(','),
-	length: location.search.match(/length=(\d+[ymwd]|ytd)/i)?.at(1).toLowerCase(),
+	range: location.search.match(/(\d+[ymwd]|ytd|all)/i)?.at(1).toLowerCase(),
 };
+
+if (!dataFilters.range && !dataFilters.startDate && !dataFilters.endDate) {
+	dataFilters.range = '1y'; // NOTE: Using 1 year as default filter
+}
+if (dataFilters.range && dataFilters.range !== 'all') {
+	const today = new Date();
+	const startDate = new Date(today);
+	if (dataFilters.range === 'ytd') {
+		startDate.setMonth(0, 1);
+	} else if (dataFilters.range.endsWith('d')) {
+		const days = parseInt(dataFilters.range.substring(0, dataFilters.range.length-1));
+		startDate.setDate(today.getDate() - days);
+	} else if (dataFilters.range.endsWith('w')) {
+		const weeks = parseInt(dataFilters.range.substring(0, dataFilters.range.length-1));
+		startDate.setDate(today.getDate() - weeks * 7);
+	} else if (dataFilters.range.endsWith('m')) {
+		const months = parseInt(dataFilters.range.substring(0, dataFilters.range.length-1));
+		startDate.setMonth(today.getMonth() - months);
+	} else if (dataFilters.range.endsWith('y')) {
+		const years = parseInt(dataFilters.range.substring(0, dataFilters.range.length-1));
+		startDate.setFullYear(today.getFullYear() - years);
+	}
+	dataFilters.startDate = startDate.toISOString().split('T')[0];
+}
+if (dataFilters.range === 'all') {
+	dataFilters.startDate = undefined;
+	dataFilters.endDate = undefined;
+}
 const data = filterData(getAllData(), dataFilters);
 const labels = getLabels(data);
 
@@ -141,12 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const chartAll = new Chart(ctx, config);
 	const allLabels = getLabels(getAllData());
 	const startDataInput = document.querySelector('input[name=from]');
-	if (dataFilters.length) {
-		if (dataFilters.length === 'ytd') {
-			const today = new Date();
-			dataFilters.startDate = today.getFullYear()+'-01-01';
-		}
-	}
 	startDataInput.value = dataFilters.startDate || allLabels[0];
 	const endDateInput = document.querySelector('input[name=to]');
 	endDateInput.value = dataFilters.endDate || allLabels[allLabels.length-1];
@@ -160,5 +182,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			chartAll.getDatasetMeta(i).hidden = !hidden;
 		}
 		chartAll.update();
+	});
+	document.querySelector('#range-1w').addEventListener('click', () => {
+		location.search = '1w';
+	});
+	document.querySelector('#range-1m').addEventListener('click', () => {
+		location.search = '1m';
+	});
+	document.querySelector('#range-1y').addEventListener('click', () => {
+		location.search = '1y';
+	});
+	document.querySelector('#range-ytd').addEventListener('click', () => {
+		location.search = 'ytd';
+	});
+	document.querySelector('#range-all').addEventListener('click', () => {
+		location.search = 'all';
 	});
 });

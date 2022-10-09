@@ -1,0 +1,23 @@
+a {
+	text-decoration: none;
+}
+
+.fixed {
+	position: fixed;
+}
+
+.top {
+	top: 5px;
+}
+
+.bottom {
+	bottom: 5px;
+}
+
+.right {
+	right: 5px;
+}
+
+.left {
+	left: 5px;
+}
