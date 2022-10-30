@@ -49,7 +49,7 @@ I like to use Make to write tasks (instead of using nodejs package scripts) beca
 
 ## Usage
 
-If you just want to see the chart, ignore the following instructions and go here: https://tumeo.space/manga-plus-top40/
+If you just want to see the chart, ignore the following instructions and go here: https://manga.tumeo.space
 
 Follow the instructions below if you want to run this project locally:
 
@@ -87,4 +87,4 @@ To process the webpage, change to the `site` directory and run the following com
 make
 ```
 
->NOTE: This task is already performed automatically by GitHub Pages Environment, see the results here: https://tumeo.space/manga-plus-top40/.
+>NOTE: This task is already performed automatically by GitHub Pages Environment, see the results here: https://manga.tumeo.space.
