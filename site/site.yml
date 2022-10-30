@@ -3,3 +3,5 @@ baseurl: /
 
 mangaplusurl: https://mangaplus.shueisha.co.jp/
 repourl: https://github.com/williamd1k0/manga-plus-top40/
+
+ads_enabled: true

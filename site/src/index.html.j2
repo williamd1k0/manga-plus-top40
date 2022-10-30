@@ -1,27 +1,30 @@
 {% extends "layouts/chart.html.j2" %}
 
 {% block content %}
-<div class="fixed top left">
-	<form action="">
-		<input name="from" type="date" />~<input name="to" type="date" />
-		<button type="submit">Apply</button>
-	</form>
-</div>
-<div class="fixed top right">
-	<button id="range-1w">1W</button>
-	<button id="range-1m">1M</button>
-	<button id="range-1y">1Y</button>
-	<button id="range-ytd">YTD</button>
-	<button id="range-all">All</button>
-</div>
-<canvas id="chart-all"></canvas>
-<button id="toggle-selection-btn" class="fixed bottom left">Toggle Titles</button>
-<div class="fixed bottom right">
-	<a href="{{ site.mangaplusurl }}">
-		<img src="https://img.shields.io/static/v1?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABFFBMVEUAAAAzMzMjGRUiGBQjFxQjFxQiGBQkGhZAQAAgFxIiFxQiFxQiFxMjGhIhFhYjFxMiGBQgFxMhGRUiFxQiGRQiGBQjFxMhFxQjFhYuFxchFhYiFxQiFxQkFRUXFxciGRQiFxUiFxQiFhQiGBQiFxQiFxUfGRMiFxciFxQiFhQiFhMiFxQAAAAiFxQiFxQiFxQiFxQiFxQjFxckGxIiFxUjFhQiFhMhGBMkGxseHg8cHBwhGBMiFxQjFxUhFxQiEREiFxQiFhUcHA4hFxUiFxMiFxQiFxQfGhQhFhQiFhQjFxUgICAaGhojGBUjFxUAAAAdFBQhGhQjFxEiFxQiFxQiFxQiFxQhFhUgGhMAAAAiFxT///8E6erKAAAAWnRSTlMABUiAm5p+RgQ426VEHRdC2Tc+3DSXhd06Cy794jELaIj+441xriktxM2f+wLmzJjovRYc031pbBwRCTbebb8PtZUSxt/18jJz2FcICmBuARonLKPk1OqgKAM0gR8rAAAAAWJLR0RbdLyVNAAAAAd0SU1FB+YGDhISOsIMDtMAAAABb3JOVAHPoneaAAAArUlEQVQY022PxRLCUAxFA0WLF3k4FCgOxd3d3f//Q8ibTqcsuIuT3DOTRQD+RKVmNFqd3iB3I2syW6w2jd0hdc7pAnB7AFzES7uP+JGBICJEwshIlGo+RhlPIISkIlJpRAayhJBPDsHkCyiKIHyk8CKUUJQrykm1hqg3FNEUES3SlkWn2+Nw9AdDgNEYYDKdzRdLNKv1Zguw27MHOJ7O9PRyvbH3x/P1+/D7LW9fNDwVYIpkCtcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDYtMTRUMTg6MTg6NTgrMDA6MDCC3c6JAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA2LTE0VDE4OjE4OjU3KzAwOjAwBcgG3AAAAABJRU5ErkJggg==&label=MANGA%20Plus&message=read&color=red" />
-	</a>
-	<a href="{{ site.repourl }}">
-		<img src="https://img.shields.io/static/v1?style=flat&logo=github&label=GitHub&message=fork&color=purple" />
-	</a>
-</div>
+	{{ super() }}
+	<div class="main-container {% if site.ads_enabled %}blur{% endif %}">
+		<div class="fixed top left">
+			<form action="">
+				<input name="from" type="date" />~<input name="to" type="date" />
+				<button type="submit">Apply</button>
+			</form>
+		</div>
+		<div class="fixed top right">
+			<button id="range-1w">1W</button>
+			<button id="range-1m">1M</button>
+			<button id="range-1y">1Y</button>
+			<button id="range-ytd">YTD</button>
+			<button id="range-all">All</button>
+		</div>
+		<canvas id="chart-all"></canvas>
+		<button id="toggle-selection-btn" class="fixed bottom left">Toggle Titles</button>
+		<div class="fixed bottom right">
+			<a href="{{ site.mangaplusurl }}">
+				<img src="https://img.shields.io/static/v1?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABFFBMVEUAAAAzMzMjGRUiGBQjFxQjFxQiGBQkGhZAQAAgFxIiFxQiFxQiFxMjGhIhFhYjFxMiGBQgFxMhGRUiFxQiGRQiGBQjFxMhFxQjFhYuFxchFhYiFxQiFxQkFRUXFxciGRQiFxUiFxQiFhQiGBQiFxQiFxUfGRMiFxciFxQiFhQiFhMiFxQAAAAiFxQiFxQiFxQiFxQiFxQjFxckGxIiFxUjFhQiFhMhGBMkGxseHg8cHBwhGBMiFxQjFxUhFxQiEREiFxQiFhUcHA4hFxUiFxMiFxQiFxQfGhQhFhQiFhQjFxUgICAaGhojGBUjFxUAAAAdFBQhGhQjFxEiFxQiFxQiFxQiFxQhFhUgGhMAAAAiFxT///8E6erKAAAAWnRSTlMABUiAm5p+RgQ426VEHRdC2Tc+3DSXhd06Cy794jELaIj+441xriktxM2f+wLmzJjovRYc031pbBwRCTbebb8PtZUSxt/18jJz2FcICmBuARonLKPk1OqgKAM0gR8rAAAAAWJLR0RbdLyVNAAAAAd0SU1FB+YGDhISOsIMDtMAAAABb3JOVAHPoneaAAAArUlEQVQY022PxRLCUAxFA0WLF3k4FCgOxd3d3f//Q8ibTqcsuIuT3DOTRQD+RKVmNFqd3iB3I2syW6w2jd0hdc7pAnB7AFzES7uP+JGBICJEwshIlGo+RhlPIISkIlJpRAayhJBPDsHkCyiKIHyk8CKUUJQrykm1hqg3FNEUES3SlkWn2+Nw9AdDgNEYYDKdzRdLNKv1Zguw27MHOJ7O9PRyvbH3x/P1+/D7LW9fNDwVYIpkCtcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDYtMTRUMTg6MTg6NTgrMDA6MDCC3c6JAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA2LTE0VDE4OjE4OjU3KzAwOjAwBcgG3AAAAABJRU5ErkJggg==&label=MANGA%20Plus&message=read&color=red" />
+			</a>
+			<a href="{{ site.repourl }}">
+				<img src="https://img.shields.io/static/v1?style=flat&logo=github&label=GitHub&message=fork&color=purple" />
+			</a>
+		</div>
+	</div>
 {% endblock %}

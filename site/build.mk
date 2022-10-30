@@ -1,5 +1,5 @@
 SITE_CONF := site.yml
-INCLUDES := layouts
+INCLUDES := layouts includes
 EXCLUDES :=
 SRC := src
 DATA := data
