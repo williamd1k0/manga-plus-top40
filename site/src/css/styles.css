@@ -2,6 +2,29 @@ a {
 	text-decoration: none;
 }
 
+button {
+	background-color: #118bee;
+    border: 2px solid #118bee;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+	background-color: #50aaf3;
+}
+
+button:active {
+	background-color: #0c63a9;
+}
+
+input, button {
+    border-radius: 5px;
+}
+
+input {
+	border: 1px solid #e9e9e9;
+}
+
 .fixed {
 	position: fixed;
 }
