@@ -39,7 +39,7 @@ ${CACHE}/site.json: ${SITE_CONF}
 
 ${CACHE}/data/%.json: ${DATA}/%.yml
 	@mkdir -p ${CACHE}/data
-	@yj $< | jq '. | { $(patsubst %.yml, %, ${<F}): . }' > $@
+	@yj $< | jq '. | { $(patsubst %.yml, %, "${<F}"): . }' > $@
 
 ${CACHE}/data.json: ${DATA_TARGETS}
 	@jq -s add $^ | jq '. | { data: . }' > $@
