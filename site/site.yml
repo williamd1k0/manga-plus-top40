@@ -1,6 +1,7 @@
 title: MANGA Plus Top 40
 baseurl: /
 
+default_date_range: 1m
 mangaplusurl: https://mangaplus.shueisha.co.jp/
 repourl: https://github.com/williamd1k0/manga-plus-top40/
 

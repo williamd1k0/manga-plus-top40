@@ -71,7 +71,7 @@ const dataFilters = {
 };
 
 if (!dataFilters.range && !dataFilters.startDate && !dataFilters.endDate) {
-	dataFilters.range = '1y'; // NOTE: Using 1 year as default filter
+	dataFilters.range = '{{ site.default_date_range }}';
 }
 if (dataFilters.range && dataFilters.range !== 'all') {
 	const today = new Date();
