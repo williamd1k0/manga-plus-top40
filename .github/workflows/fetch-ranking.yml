@@ -13,10 +13,10 @@ jobs:
       with:
         ssh-key: ${{ secrets.DEPLOY_KEY }}
         persist-credentials: true
-    - name: Use Node.js 16
+    - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 18
         cache: 'yarn'
     - run: yarn install
     - name: Fetch data
