@@ -29,12 +29,12 @@ const outputPath = path.join(dir, nowDate+'.tsv');
 	if (!NO_WRITE && await fileExists(outputPath) && !OVERWRITE) {
 		process.exit(1);
 	}
-	const browser = await puppeteer.launch({ headless: false });
+	const browser = await puppeteer.launch({ headless: true });
 	const page = await browser.newPage();
 	await page.goto(URL, {
 		waitUntil: ['domcontentloaded', 'networkidle0'],
 	});
-	if (URL.endsWith("/manga_list")) { // deprecated at 2023.03.28
+	if (URL.endsWith("/manga_list")) { // deprecated since 2023.03.28
 		await page.waitForSelector('a[href="/manga_list/hot"]');
 		const hottest_btn = await page.$('a[href="/manga_list/hot"]');
 		await hottest_btn.click();
