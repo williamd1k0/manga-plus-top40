@@ -7,12 +7,13 @@ const fileExists = async p => !!(await fs.stat(p).catch(e => false));
 const ARGS = process.argv.slice(2);
 const NO_WRITE = ARGS.includes("-n");
 const OVERWRITE = ARGS.includes('-O');
-let URL = "https://mangaplus.shueisha.co.jp/manga_list";
+let URL = "https://mangaplus.shueisha.co.jp";
 const now = new Date();
 let nowDate = now.toISOString().split('T')[0];
 if (ARGS.includes('-a')) {
 		const archiveID = ARGS[ARGS.indexOf('-a')+1];
-		URL = "https://web.archive.org/web/"+archiveID+"/"+URL+"/hot";
+		const old_url = "https://mangaplus.shueisha.co.jp/manga_list/hot"
+		URL = "https://web.archive.org/web/"+archiveID+"/"+old_url;
 		nowDate = [archiveID.substr(0, 4), archiveID.substr(4, 2), archiveID.substr(6, 2)].join('-');
 }
 let OUTPUT_DIR = "scraped-data";
@@ -28,14 +29,18 @@ const outputPath = path.join(dir, nowDate+'.tsv');
 	if (!NO_WRITE && await fileExists(outputPath) && !OVERWRITE) {
 		process.exit(1);
 	}
-	const browser = await puppeteer.launch({ headless: true });
+	const browser = await puppeteer.launch({ headless: false });
 	const page = await browser.newPage();
 	await page.goto(URL, {
 		waitUntil: ['domcontentloaded', 'networkidle0'],
 	});
-	if (!URL.endsWith("/hot")) {
+	if (URL.endsWith("/manga_list")) { // deprecated at 2023.03.28
 		await page.waitForSelector('a[href="/manga_list/hot"]');
 		const hottest_btn = await page.$('a[href="/manga_list/hot"]');
+		await hottest_btn.click();
+	} else if (!URL.endsWith("/manga_list/hot")) { // new approach since 2023.03.28
+		await page.waitForSelector('a[href="/ranking"]');
+		const hottest_btn = await page.$('a[href="/ranking"]');
 		await hottest_btn.click();
 	}
 	await page.waitForSelector('div[class^=HotTitle-module_container]', {timeout: 5000});
