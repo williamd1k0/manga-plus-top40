@@ -7,7 +7,7 @@ const fileExists = async p => !!(await fs.stat(p).catch(e => false));
 const ARGS = process.argv.slice(2);
 const NO_WRITE = ARGS.includes("-n");
 const OVERWRITE = ARGS.includes('-O');
-let URL = "https://mangaplus.shueisha.co.jp";
+let URL = "https://mangaplus.shueisha.co.jp/favorited";
 const now = new Date();
 let nowDate = now.toISOString().split('T')[0];
 if (ARGS.includes('-a')) {
