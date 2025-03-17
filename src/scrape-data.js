@@ -6,7 +6,7 @@ const fileExists = async (p) => !!(await fs.stat(p).catch((e) => false));
 const ARGS = process.argv.slice(2);
 const NO_WRITE = ARGS.includes("-n");
 const OVERWRITE = ARGS.includes("-O");
-let URL = "https://mangaplus.shueisha.co.jp/favorited";
+let URL = "https://mangaplus.shueisha.co.jp/ranking/hottest";
 const now = new Date();
 let nowDate = now.toISOString().split("T")[0];
 if (ARGS.includes("-a")) {
@@ -45,7 +45,7 @@ const outputPath = path.join(dir, nowDate + ".tsv");
     const hottest_btn = await page.$('a[href="/manga_list/hot"]');
     await hottest_btn.click();
   } else if (!URL.endsWith("/manga_list/hot")) {
-    // new approach since 2023.03.28
+    //deprecated since 2025.03.17
     await page.waitForSelector('a[href="/ranking"]');
     const hottest_btn = await page.$('a[href="/ranking"]');
     await hottest_btn.click();
