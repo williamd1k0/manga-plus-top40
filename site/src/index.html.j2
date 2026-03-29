@@ -2,7 +2,7 @@
 
 {% block content %}
 	{{ super() }}
-	<div class="main-container {% if site.ads_enabled %}blur{% endif %}">
+	<div class="main-container">
 		<div class="fixed top left">
 			<form action="">
 				<input name="from" type="date" />~<input name="to" type="date" />
@@ -12,6 +12,7 @@
 		<div class="fixed top right">
 			<button id="range-1w">1W</button>
 			<button id="range-1m">1M</button>
+			<button id="range-1q">1Q</button>
 			<button id="range-1y">1Y</button>
 			<button id="range-ytd">YTD</button>
 			<button id="range-all">All</button>
