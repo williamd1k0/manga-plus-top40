@@ -37,11 +37,11 @@ jobs:
           cache: 'yarn'
       - run: yarn install
       - name: Install fd
-        uses: baptiste0928/cargo-install@v1
+        uses: baptiste0928/cargo-install@v3
         with:
           crate: fd-find
       - name: Install yj
-        uses: baptiste0928/cargo-install@v1
+        uses: baptiste0928/cargo-install@v3
         with:
           crate: yj
       - name: Install jinja2
