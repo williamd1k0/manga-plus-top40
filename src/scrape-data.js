@@ -64,6 +64,7 @@ const outputPath = path.join(dir, nowDate + ".tsv");
     console.log(rank, title);
     content += rank + "\t" + title + "\n";
     rank++;
+    if (rank > 40) break; // Anything beyond 40 is just duplicate for mobile layout
   }
   if (!NO_WRITE) {
     await fs.mkdir(dir, { recursive: true });
